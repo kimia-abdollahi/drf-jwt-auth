@@ -19,6 +19,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
 
+    # ✅ add:
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
+
     # Local
     "users",
 ]
@@ -84,6 +88,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+        "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 
@@ -93,4 +98,20 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,  
     "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "DRF JWT Auth API",
+    "DESCRIPTION": "A clean sample API with JWT authentication (register/login/refresh/logout, profile, admin-only).",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,  
+    "COMPONENT_SPLIT_REQUEST": True,
+    "AUTHENTICATION_WHITELIST": [],
+    "SECURITY": [
+        {"BearerAuth": []}
+    ],
+    "SWAGGER_UI_SETTINGS": {
+        "persistAuthorization": True,
+    },
 }
